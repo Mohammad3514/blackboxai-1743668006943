@@ -13,20 +13,24 @@ function calculateProfit() {
         // Calculate values
         const totalRevenue = itemPrice * quantity;
         const totalCostOfGoods = costOfGoods * quantity;
-        const etsyFee = totalRevenue * 0.05; // 5% transaction fee
+        const etsyTransactionFee = totalRevenue * 0.05; // 5% transaction fee
+        const etsyListingFee = 0.20 * quantity; // $0.20 per item listing fee
         const paymentFee = (totalRevenue * 0.03) + 0.25; // 3% + $0.25
         const totalShipping = shippingCost * quantity;
         const totalTax = totalRevenue * (taxRate / 100);
         
-        const totalFees = etsyFee + paymentFee + totalTax;
+        const totalFees = etsyTransactionFee + etsyListingFee + paymentFee + totalTax;
         const totalCosts = totalCostOfGoods + totalShipping + totalFees;
+        const profitMargin = ((totalRevenue - totalCosts) / totalRevenue) * 100;
         const netProfit = totalRevenue - totalCosts;
         const profitPerItem = netProfit / quantity;
 
         // Display results
         document.getElementById('totalRevenue').textContent = `$${totalRevenue.toFixed(2)}`;
         document.getElementById('totalCost').textContent = `$${totalCostOfGoods.toFixed(2)}`;
-        document.getElementById('etsyFee').textContent = `$${etsyFee.toFixed(2)}`;
+        document.getElementById('etsyTransactionFee').textContent = `$${etsyTransactionFee.toFixed(2)}`;
+        document.getElementById('etsyListingFee').textContent = `$${etsyListingFee.toFixed(2)}`;
+        document.getElementById('profitMargin').textContent = `${profitMargin.toFixed(2)}%`;
         document.getElementById('paymentFee').textContent = `$${paymentFee.toFixed(2)}`;
         document.getElementById('totalShipping').textContent = `$${totalShipping.toFixed(2)}`;
         document.getElementById('totalTax').textContent = `$${totalTax.toFixed(2)}`;
